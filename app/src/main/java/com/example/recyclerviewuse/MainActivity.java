@@ -3,6 +3,7 @@ package com.example.recyclerviewuse;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         rv.setHasFixedSize(true);
 
         rv.setLayoutManager(new LinearLayoutManager(this));
+        //rv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
 
         ulkelerList =new ArrayList<>();
         ulkelerList.add("ÜLKELER");

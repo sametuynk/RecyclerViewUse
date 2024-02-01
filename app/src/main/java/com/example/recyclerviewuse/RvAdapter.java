@@ -2,8 +2,12 @@ package com.example.recyclerviewuse;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +25,17 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.CardViewTasarimNes
         this.mcontext = mcontext;
         this.ulkelerDisaridanGelenList = ulkelerDisaridanGelenList;
     }
+
     //Card tasarımını temsil eden bir sınıf oluşturduk.
-    public class CardViewTasarimNesnelerinitutucu extends RecyclerView.ViewHolder{
+    public static class CardViewTasarimNesnelerinitutucu extends RecyclerView.ViewHolder{
         public TextView satirYazi;
         public CardView satirCardView;
+        public ImageView noktaResim;
         public CardViewTasarimNesnelerinitutucu(View view) {
             super(view);
             satirYazi=view.findViewById(R.id.textSatirYazi);
             satirCardView=view.findViewById(R.id.satirCardView);
+            noktaResim=view.findViewById(R.id.noktaResim);
         }
     }
 
@@ -49,6 +56,29 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.CardViewTasarimNes
             @Override
             public void onClick(View v) {
                 Toast.makeText(mcontext, "Seçtiğiniz ülke :"+ulke,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.noktaResim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu=new PopupMenu(mcontext,holder.noktaResim);
+                popupMenu.getMenuInflater().inflate(R.menu.card_menu,popupMenu.getMenu());
+                popupMenu.show();
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getItemId()==R.id.action_sil){
+                                Toast.makeText(mcontext, "Sil Tıklandı :"+ulke, Toast.LENGTH_SHORT).show();
+                                return true;
+                            } else if (item.getItemId()==R.id.action_duzenle) {
+                                Toast.makeText(mcontext, "Düzenle Tıklandı :"+ulke, Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                        return false;
+                    }
+                });
             }
         });
     }
